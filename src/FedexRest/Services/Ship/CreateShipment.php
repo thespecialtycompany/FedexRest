@@ -27,6 +27,7 @@ class CreateShipment extends AbstractRequest
     protected string $packagingType = '';
     protected string $pickupType = '';
     protected int $accountNumber;
+    protected array $rateRequestTypes;
     protected array $lineItems = [];
     protected string $labelResponseOptions = '';
     protected ShipmentSpecialServices $shipmentSpecialServices;
@@ -161,6 +162,17 @@ class CreateShipment extends AbstractRequest
     public function setAccountNumber(int $accountNumber): CreateShipment {
         $this->accountNumber = $accountNumber;
         return $this;
+    }
+
+    public function setRateRequestTypes(string ...$rateRequestTypes): CreateShipment
+    {
+        $this->rateRequestTypes = $rateRequestTypes;
+        return $this;
+    }
+
+    public function getRateRequestTypes(): array
+    {
+        return $this->rateRequestTypes;
     }
 
     /**
@@ -493,6 +505,9 @@ class CreateShipment extends AbstractRequest
         if (!empty($this->label)) {
             $data ['labelSpecification'] = $this->label->prepare();
         }
+        if (!empty($this->rateRequestTypes)) {
+            $data['rateRequestType'] = $this->rateRequestTypes;
+        }
         if (!empty($this->shipmentSpecialServices)) {
             $data['shipmentSpecialServices'] = $this->shipmentSpecialServices->prepare();
         }
@@ -539,6 +554,7 @@ class CreateShipment extends AbstractRequest
         if (!empty($this->processingOptionType)) {
             $data['processingOptionType'] = $this->processingOptionType;
         }
+
         return $data;
     }
 

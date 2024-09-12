@@ -9,7 +9,7 @@ class Address
     public string $state_or_province;
     public string $postal_code;
     public string $country_code;
-    public bool $residential;
+    public ?bool $residential = null;
 
     /**
      * @param $street_lines
@@ -65,7 +65,7 @@ class Address
      * @param bool $residential
      * @return $this
      */
-    public function setResidential(bool $residential)
+    public function setResidential(?bool $residential)
     {
         $this->residential = $residential;
         return $this;
@@ -89,7 +89,7 @@ class Address
         if (!empty($this->country_code)) {
             $address['countryCode'] = $this->country_code;
         }
-        if (!empty($this->residential)) {
+        if (!is_null($this->residential)) {
             $address['residential'] = $this->residential;
         }
 

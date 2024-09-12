@@ -389,6 +389,10 @@ class CreateRatesRequest extends AbstractRequest
             $data['shipmentSpecialServices'] = $this->shipmentSpecialServices->prepare();
         }
 
+        if (!empty($this->shippingChargesPayment)) {
+            $data['shippingChargesPayment'] = $this->shippingChargesPayment->prepare();
+        }
+
         if (!empty($this->serviceType)) {
             $data['serviceType'] = $this->serviceType;
         }
